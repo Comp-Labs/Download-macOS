@@ -30,4 +30,4 @@ jobs:
         run: |
            sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
            sleep 5
-           softwareupdate --list-full-installerssoftwareupdate --fetch-full-installer --full-installer-version 10.14.6
+           softwareupdate --fetch-full-installer --full-installer-version 10.14.6
