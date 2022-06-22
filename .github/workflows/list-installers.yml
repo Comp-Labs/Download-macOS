@@ -28,4 +28,5 @@ jobs:
         run: |
            sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
            sleep 5
+           softwareupdate
            softwareupdate --list-full-installers
