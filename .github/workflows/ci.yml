@@ -1,0 +1,99 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Download macOS
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Name'
+        required: true
+        default: 'macOS'
+      macos_version:
+        type: choice
+        description: 'macOS Version'
+        required: true
+        options:
+        - Monterey v12.4
+        - Big Sur v11.6.8
+        - Catalina v10.15.7
+        - Mojave v10.14.6
+        - High Sierra v10.13.6
+        - Ventura Beta v13.0
+        - Monterey Beta v12.5
+      format:
+        type: choice
+        description: 'Download Format'
+        required: true
+        options:
+        - ISO File
+        - DMG File
+        - ZIP File
+
+jobs:
+  build-n-upload:
+  
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+    # MARK: macOS Version
+
+      - if: github.event.inputs.macos_version == 'Monterey v12.4'
+        name: Download macOS Monterey Latest
+        run: |
+           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+           sleep 5
+           softwareupdate --fetch-full-installer --full-installer-version 12.4
+           
+      - if: github.event.inputs.macos_version == 'Big Sur v11.6.8'
+        name: Download macOS BigSur Latest
+        run: |
+           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+           sleep 5
+           softwareupdate --fetch-full-installer --full-installer-version 11.6.8
+           
+      - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
+        name: Download macOS Catalina Latest
+        run: |
+           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+           sleep 5
+           softwareupdate --fetch-full-installer --full-installer-version 10.15.7
+           
+      - if: github.event.inputs.macos_version == 'Mojave v10.14.6'
+        name: Download macOS Mojave Latest
+        run: |
+           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+           sleep 5
+           softwareupdate --fetch-full-installer --full-installer-version 10.14.6
+           
+      - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
+        name: Download macOS HighSierra Latest
+        run: |
+           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+           sleep 5
+           softwareupdate --fetch-full-installer --full-installer-version 10.13.6
+           
+      - if: github.event.inputs.macos_version == 'Ventura Beta v13.0'
+        name: Download macOS VenturaBeta Latest
+        run: |
+           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+           sleep 5
+           softwareupdate --fetch-full-installer --full-installer-version 13.0
+
+      - if: github.event.inputs.macos_version == 'Monterey Beta v12.5'
+        name: Download macOS MontereyBeta Latest
+        run: |
+           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+           sleep 5
+           softwareupdate --fetch-full-installer --full-installer-version 12.5
+           
+     # MARK: File Format
+     
+      - name: Upload macOS from Root
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Ventura
+          path: "/Applications/Install macOS 13 Beta.app"
