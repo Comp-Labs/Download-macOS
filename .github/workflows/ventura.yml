@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: Download macOS Mojave Latest
+      - name: Download macOS Ventura Latest
         run: |
            sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
            sleep 5
