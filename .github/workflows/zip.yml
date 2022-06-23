@@ -17,7 +17,7 @@ on:
           - Monterey Beta v12.5
 
 jobs:
-  build-n-upload:
+  build-zip:
     runs-on: macos-latest
 
     steps:
