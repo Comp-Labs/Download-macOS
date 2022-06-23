@@ -1,0 +1,194 @@
+name: Generate macOS ISO
+
+on:
+  workflow_dispatch:
+    inputs:
+      macos_version:
+        type: choice
+        description: "macOS Version"
+        required: true
+        options:
+          - Monterey v12.4
+          - Big Sur v11.6.8
+          - Catalina v10.15.7
+          - Mojave v10.14.6
+          - High Sierra v10.13.6
+          - Ventura Beta v13.0
+          - Monterey Beta v12.5
+
+jobs:
+  build-iso:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # MARK: macOS Version
+
+      - if: github.event.inputs.macos_version == 'Monterey v12.4'
+        name: Download macOS Monterey Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 12.4
+
+      - if: github.event.inputs.macos_version == 'Big Sur v11.6.8'
+        name: Download macOS BigSur Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 11.6.8
+
+      - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
+        name: Download macOS Catalina Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 10.15.7
+
+      - if: github.event.inputs.macos_version == 'Mojave v10.14.6'
+        name: Download macOS Mojave Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 10.14.6
+
+      - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
+        name: Download macOS HighSierra Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 10.13.6
+
+      - if: github.event.inputs.macos_version == 'Ventura Beta v13.0'
+        name: Download macOS Ventura Beta Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 13.0
+
+      - if: github.event.inputs.macos_version == 'Monterey Beta v12.5'
+        name: Download macOS MontereyBeta Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 12.5
+
+      # Monterey
+
+      - if: github.event.inputs.macos_version == 'Monterey v12.4'
+        name: ISO and Upload
+        run: |
+          sudo hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/Monterey.dmg -noverify -mountpoint /Volumes/Monterey
+          sudo /Applications/Install\ macOS\ Monterey.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Monterey
+          hdiutil convert /tmp/Monterey.dmg -format UDTO -o ~/Desktop/Monterey
+          mv -v ~/Desktop/Monterey.cdr ~/Desktop/Monterey.iso
+          sudo rm -fv /tmp/Monterey.dmg
+      - uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Monterey
+          path: "~/Desktop/Monterey.iso"
+
+      # Big Sur
+
+      - if: github.event.inputs.macos_version == 'Big Sur v11.6.8'
+        name: ISO and Upload
+        run: |
+          sudo hdiutil create -o /tmp/BigSur -size 16384m -volname BigSur -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/BigSur.dmg -noverify -mountpoint /Volumes/BigSur
+          sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/BigSur --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Big\ Sur
+          hdiutil convert /tmp/BigSur.dmg -format UDTO -o ~/Desktop/BigSur
+          mv -v ~/Desktop/BigSur.cdr ~/Desktop/BigSur.iso
+          sudo rm -fv /tmp/BigSur.dmg
+      - uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Big Sur
+          path: "~/Desktop/BigSur.iso"
+
+      # Catalina
+
+      - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
+        name: ISO and Upload
+        run: |
+          sudo hdiutil create -o /tmp/Catalina -size 16384m -volname Catalina -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/Catalina.dmg -noverify -mountpoint /Volumes/Catalina
+          sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/Catalina --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Catalina
+          hdiutil convert /tmp/Catalina.dmg -format UDTO -o ~/Desktop/Catalina
+          mv -v ~/Desktop/Catalina.cdr ~/Desktop/Catalina.iso
+          sudo rm -fv /tmp/Catalina.dmg
+      - uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Catalina
+          path: "~/Desktop/Catalina.iso"
+
+      # Mojave
+
+      - if: github.event.inputs.macos_version == 'Mojave v10.14.6'
+        name: ISO and Upload
+        run: |
+          sudo hdiutil create -o /tmp/Mojave -size 16384m -volname Mojave -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/Mojave.dmg -noverify -mountpoint /Volumes/Mojave
+          sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/Mojave --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Mojave
+          hdiutil convert /tmp/Mojave.dmg -format UDTO -o ~/Desktop/Mojave
+          mv -v ~/Desktop/Mojave.cdr ~/Desktop/Mojave.iso
+          sudo rm -fv /tmp/Mojave.dmg
+      - uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Mojave
+          path: "~/Desktop/Mojave.iso"
+
+      # High Sierra
+
+      - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
+        name: ISO and Upload
+        run: |
+          sudo hdiutil create -o /tmp/HighSierra -size 16384m -volname HighSierra -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/HighSierra.dmg -noverify -mountpoint /Volumes/HighSierra
+          sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/HighSierra --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ High\ Sierra
+          hdiutil convert /tmp/HighSierra.dmg -format UDTO -o ~/Desktop/HighSierra
+          mv -v ~/Desktop/HighSierra.cdr ~/Desktop/HighSierra.iso
+          sudo rm -fv /tmp/HighSierra.dmg
+      - uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS High Sierra
+          path: "~/Desktop/HighSierra.iso"
+
+      # Ventura Beta
+
+      - if: github.event.inputs.macos_version == 'Ventura Beta v13.0'
+        name: ISO and Upload
+        run: |
+          sudo hdiutil create -o /tmp/Ventura -size 16384m -volname Ventura -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
+          sudo /Applications/Install\ macOS\ 13\ Beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ 13\ Beta
+          hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
+          mv -v ~/Desktop/Ventura.cdr ~/Desktop/Ventura.iso
+          sudo rm -fv /tmp/Ventura.dmg
+      - uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Ventura Beta
+          path: "~/Desktop/Ventura.iso"
+
+      # Monterey Beta
+
+      - if: github.event.inputs.macos_version == 'Monterey Beta v12.5'
+        name: ISO and Upload
+        run: |
+          sudo hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/Monterey.dmg -noverify -mountpoint /Volumes/Monterey
+          sudo /Applications/Install\ macOS\ 12\ Beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ 12\ Beta
+          hdiutil convert /tmp/Monterey.dmg -format UDTO -o ~/Desktop/Monterey
+          mv -v ~/Desktop/Monterey.cdr ~/Desktop/Monterey.iso
+          sudo rm -fv /tmp/Monterey.dmg
+      - uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Monterey Beta
+          path: "~/Desktop/Monterey.iso"
