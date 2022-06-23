@@ -92,8 +92,14 @@ jobs:
            
      # MARK: File Format
      
-      - name: Upload macOS from Root
-        uses: actions/upload-artifact@v3.1.0
+      - if: |
+          github.event.inputs.format == 'ZIP File' ||
+          github.event.inputs.macos_version == 'Ventura Beta v13.0'
+        name: Zip and Upload
+        run: |
+          cd /Applications
+          zip -r "Install macOS 13 Beta.zip" "Install macOS 13 Beta.app"
+      - uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Ventura
-          path: "/Applications/Install macOS 13 Beta.app"
+          path: "/Applications/Install macOS 13 Beta.zip"
