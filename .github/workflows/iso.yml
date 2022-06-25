@@ -1,4 +1,4 @@
-name: Generate macOS ISO
+name: Generate ISO
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Generate macOS DMG
+name: Generate DMG
 
 on:
   workflow_dispatch:

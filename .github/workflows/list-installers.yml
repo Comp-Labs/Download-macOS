@@ -1,4 +1,4 @@
-name: ListInstallers
+name: List Available macOS Releases
 
 # Controls when the workflow will run
 on:

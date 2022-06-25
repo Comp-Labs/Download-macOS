@@ -1,4 +1,4 @@
-name: Generate macOS ZIP
+name: Generate ZIP
 
 on:
   workflow_dispatch:
