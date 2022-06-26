@@ -144,7 +144,7 @@ jobs:
       - uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Ventura Beta
-          path: "/Applications/Install macOS 13 Beta.zip"
+          path: "/Applications/Install macOS 13 beta.zip"
 
       # Monterey Beta
 
