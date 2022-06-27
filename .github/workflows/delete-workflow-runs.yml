@@ -13,6 +13,7 @@ jobs:
           repository: Comp-Labs/Download-macOS
           workflow: ".github/workflows/dmg.yml"
           status: completed
+          what-if: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   delete-iso:
@@ -25,6 +26,7 @@ jobs:
           repository: Comp-Labs/Download-macOS
           workflow: ".github/workflows/iso.yml"
           status: completed
+          what-if: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   delete-zip:
@@ -37,5 +39,6 @@ jobs:
           repository: Comp-Labs/Download-macOS
           workflow: ".github/workflows/zip.yml"
           status: completed
+          what-if: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
