@@ -86,7 +86,7 @@ jobs:
           sleep 10
           sudo /Applications/Install\ macOS\ Monterey.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Monterey
-          mv /tmp/Monterey.dmg ~/Desktop/Monterey.dmg
+          sudo mv /tmp/Monterey.dmg ~/Desktop/Monterey.dmg
       - uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Monterey
@@ -102,7 +102,7 @@ jobs:
           sleep 10
           sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/BigSur --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Big\ Sur
-          mv /tmp/BigSur.dmg ~/Desktop/BigSur.dmg
+          sudo mv /tmp/BigSur.dmg ~/Desktop/BigSur.dmg
       - uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Big Sur
@@ -118,7 +118,7 @@ jobs:
           sleep 10
           sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/Catalina --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Catalina
-          mv /tmp/Catalina.dmg ~/Desktop/Catalina.dmg
+          sudo mv /tmp/Catalina.dmg ~/Desktop/Catalina.dmg
       - uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Catalina
@@ -134,7 +134,7 @@ jobs:
           sleep 10
           sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/Mojave --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Mojave
-          mv /tmp/Mojave.dmg ~/Desktop/Mojave.dmg
+          sudo mv /tmp/Mojave.dmg ~/Desktop/Mojave.dmg
       - uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Mojave
@@ -150,7 +150,7 @@ jobs:
           sleep 10
           sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/HighSierra --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ High\ Sierra
-          mv /tmp/HighSierra.dmg ~/Desktop/HighSierra.dmg
+          sudo mv /tmp/HighSierra.dmg ~/Desktop/HighSierra.dmg
       - uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS High Sierra
@@ -166,7 +166,7 @@ jobs:
           sleep 10
           sudo /Applications/Install\ macOS\ Ventura\ Beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Ventura\ Beta
-          mv /tmp/Ventura.dmg ~/Desktop/Ventura.dmg
+          sudo mv /tmp/Ventura.dmg ~/Desktop/Ventura.dmg
       - uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Ventura Beta
@@ -182,7 +182,7 @@ jobs:
           sleep 10
           sudo /Applications/Install\ macOS\ 12\ Beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ 12\ Beta
-          mv /tmp/Monterey.dmg ~/Desktop/Monterey.dmg
+          sudo mv /tmp/Monterey.dmg ~/Desktop/Monterey.dmg
       - uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Monterey Beta
