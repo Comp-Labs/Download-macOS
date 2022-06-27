@@ -73,7 +73,7 @@ jobs:
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
           softwareupdate --fetch-full-installer --full-installer-version 12.5
-      
+
             # Monterey
 
       - if: github.event.inputs.macos_version == 'Monterey v12.4'
@@ -140,7 +140,6 @@ jobs:
         name: ZIP and Upload
         run: |
           cd /Applications
-          ls
           zip -r "Install macOS Ventura beta.zip" "Install macOS Ventura beta.app"
       - uses: actions/upload-artifact@v3.1.0
         with:
@@ -153,7 +152,6 @@ jobs:
         name: ZIP and Upload
         run: |
           cd /Applications
-          ls
           zip -r "Install macOS 12 Beta.zip" "Install macOS 12 Beta.app"
       - uses: actions/upload-artifact@v3.1.0
         with:

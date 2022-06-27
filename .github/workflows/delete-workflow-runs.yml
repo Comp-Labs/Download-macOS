@@ -1,0 +1,30 @@
+name: Delete Workflow Runs
+on:
+  workflow_dispatch:
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Delete old workflow runs
+        uses: MajorScruffy/delete-old-workflow-runs@v0.1.0
+        with:
+    # The repository for which to delete workflow runs.
+          repository: Comp-Labs/Download-macOS
+    # The path to the workflow's .yml file.
+          workflow: # optional
+    # Consider only the workflows older than the given number of seconds.
+          older-than-seconds: # optional
+    # Consider only the workflows created before this date for deletion.
+          created-before: # optional
+    # Returns someone's workflow runs. Use the login for the user who created the push associated with the check suite or workflow run.
+          actor: # optional
+    # Returns workflow runs associated with a branch. Use the name of the branch of the push.
+          branch: # optional
+    # Returns workflow run triggered by the event you specify. For example, push, pull_request or issue.
+          event: # optional
+    # Returns workflow runs with the given status. Can be one of queued, in_progress, or completed.
+          status: # optional
+    # Set to true to preview the changes made by this action without deleting any workflow runs.
+          what-if: # optional
