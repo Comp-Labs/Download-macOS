@@ -81,6 +81,8 @@ jobs:
         run: |
           sudo hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Monterey.dmg -noverify -mountpoint /Volumes/Monterey
+          sleep 10
+          sleep 10
           sudo /Applications/Install\ macOS\ Monterey.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Monterey
           hdiutil convert /tmp/Monterey.dmg -format UDTO -o ~/Desktop/Monterey
@@ -98,6 +100,7 @@ jobs:
         run: |
           sudo hdiutil create -o /tmp/BigSur -size 16384m -volname BigSur -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/BigSur.dmg -noverify -mountpoint /Volumes/BigSur
+          sleep 10
           sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/BigSur --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Big\ Sur
           hdiutil convert /tmp/BigSur.dmg -format UDTO -o ~/Desktop/BigSur
@@ -115,6 +118,7 @@ jobs:
         run: |
           sudo hdiutil create -o /tmp/Catalina -size 16384m -volname Catalina -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Catalina.dmg -noverify -mountpoint /Volumes/Catalina
+          sleep 10
           sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/Catalina --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Catalina
           hdiutil convert /tmp/Catalina.dmg -format UDTO -o ~/Desktop/Catalina
@@ -132,6 +136,7 @@ jobs:
         run: |
           sudo hdiutil create -o /tmp/Mojave -size 16384m -volname Mojave -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Mojave.dmg -noverify -mountpoint /Volumes/Mojave
+          sleep 10
           sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/Mojave --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Mojave
           hdiutil convert /tmp/Mojave.dmg -format UDTO -o ~/Desktop/Mojave
@@ -149,6 +154,7 @@ jobs:
         run: |
           sudo hdiutil create -o /tmp/HighSierra -size 16384m -volname HighSierra -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/HighSierra.dmg -noverify -mountpoint /Volumes/HighSierra
+          sleep 10
           sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/HighSierra --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ High\ Sierra
           hdiutil convert /tmp/HighSierra.dmg -format UDTO -o ~/Desktop/HighSierra
@@ -166,6 +172,7 @@ jobs:
         run: |
           sudo hdiutil create -o /tmp/Ventura -size 16384m -volname Ventura -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
+          sleep 10
           sudo /Applications/Install\ macOS\ Ventura\ beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Ventura\ Beta
           hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
@@ -183,6 +190,7 @@ jobs:
         run: |
           sudo hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Monterey.dmg -noverify -mountpoint /Volumes/Monterey
+          sleep 10
           sudo /Applications/Install\ macOS\ 12\ Beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ 12\ Beta
           hdiutil convert /tmp/Monterey.dmg -format UDTO -o ~/Desktop/Monterey
