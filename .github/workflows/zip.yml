@@ -141,11 +141,11 @@ jobs:
         run: |
           cd /Applications
           ls
-          zip -r "Install macOS 13 Beta.zip" "Install macOS 13 Beta.app"
+          zip -r "Install macOS Ventura beta.zip" "Install macOS Ventura beta.app"
       - uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Ventura Beta
-          path: "/Applications/Install macOS 13 beta.zip"
+          path: "/Applications/Install macOS Ventura beta.zip"
 
       # Monterey Beta
 
