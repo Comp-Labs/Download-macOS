@@ -79,7 +79,7 @@ jobs:
       # Monterey
 
       - if: github.event.inputs.macos_version == 'Monterey v12.4'
-        name: DMG and Upload
+        name: Generate Monterey DMG
         run: |
           sudo hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Monterey.dmg -noverify -mountpoint /Volumes/Monterey
@@ -87,7 +87,9 @@ jobs:
           sudo /Applications/Install\ macOS\ Monterey.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Monterey
           sudo mv /tmp/Monterey.dmg ~/Desktop/Monterey.dmg
-      - uses: actions/upload-artifact@v3.1.0
+      - if: github.event.inputs.macos_version == 'Monterey v12.4'
+        name: Upload Monterey DMG
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Monterey
           path: "~/Desktop/Monterey.dmg"
@@ -95,7 +97,7 @@ jobs:
       # Big Sur
 
       - if: github.event.inputs.macos_version == 'Big Sur v11.6.8'
-        name: DMG and Upload
+        name: Generate Big Sur DMG
         run: |
           sudo hdiutil create -o /tmp/BigSur -size 16384m -volname BigSur -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/BigSur.dmg -noverify -mountpoint /Volumes/BigSur
@@ -103,7 +105,9 @@ jobs:
           sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/BigSur --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Big\ Sur
           sudo mv /tmp/BigSur.dmg ~/Desktop/BigSur.dmg
-      - uses: actions/upload-artifact@v3.1.0
+      - if: github.event.inputs.macos_version == 'Big Sur v11.6.8'
+        name: Upload Big Sur DMG
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Big Sur
           path: "~/Desktop/BigSur.dmg"
@@ -111,7 +115,7 @@ jobs:
       # Catalina
 
       - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
-        name: DMG and Upload
+        name: Generate Catalina DMG
         run: |
           sudo hdiutil create -o /tmp/Catalina -size 16384m -volname Catalina -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Catalina.dmg -noverify -mountpoint /Volumes/Catalina
@@ -119,7 +123,9 @@ jobs:
           sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/Catalina --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Catalina
           sudo mv /tmp/Catalina.dmg ~/Desktop/Catalina.dmg
-      - uses: actions/upload-artifact@v3.1.0
+      - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
+        name: Upload Catalina DMG
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Catalina
           path: "~/Desktop/Catalina.dmg"
@@ -127,7 +133,7 @@ jobs:
       # Mojave
 
       - if: github.event.inputs.macos_version == 'Mojave v10.14.6'
-        name: DMG and Upload
+        name: Generate Mojave DMG
         run: |
           sudo hdiutil create -o /tmp/Mojave -size 16384m -volname Mojave -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Mojave.dmg -noverify -mountpoint /Volumes/Mojave
@@ -135,7 +141,9 @@ jobs:
           sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/Mojave --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Mojave
           sudo mv /tmp/Mojave.dmg ~/Desktop/Mojave.dmg
-      - uses: actions/upload-artifact@v3.1.0
+      - if: github.event.inputs.macos_version == 'Mojave v10.14.6'
+        name: Upload Mojave DMG
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Mojave
           path: "~/Desktop/Mojave.dmg"
@@ -143,7 +151,7 @@ jobs:
       # High Sierra
 
       - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
-        name: DMG and Upload
+        name: Generate High Sierra DMG
         run: |
           sudo hdiutil create -o /tmp/HighSierra -size 16384m -volname HighSierra -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/HighSierra.dmg -noverify -mountpoint /Volumes/HighSierra
@@ -151,7 +159,9 @@ jobs:
           sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/HighSierra --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ High\ Sierra
           sudo mv /tmp/HighSierra.dmg ~/Desktop/HighSierra.dmg
-      - uses: actions/upload-artifact@v3.1.0
+      - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
+        name: Upload High Sierra DMG
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS High Sierra
           path: "~/Desktop/HighSierra.dmg"
@@ -159,7 +169,7 @@ jobs:
       # Ventura Beta
 
       - if: github.event.inputs.macos_version == 'Ventura Beta v13.0'
-        name: DMG and Upload
+        name: Generate Ventura Beta DMG
         run: |
           sudo hdiutil create -o /tmp/Ventura -size 16384m -volname Ventura -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
@@ -167,7 +177,9 @@ jobs:
           sudo /Applications/Install\ macOS\ Ventura\ Beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Ventura\ Beta
           sudo mv /tmp/Ventura.dmg ~/Desktop/Ventura.dmg
-      - uses: actions/upload-artifact@v3.1.0
+      - if: github.event.inputs.macos_version == 'Ventura Beta v13.0'
+        name: Upload Ventura Beta DMG
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Ventura Beta
           path: "~/Desktop/Ventura.dmg"
@@ -175,7 +187,7 @@ jobs:
       # Monterey Beta
 
       - if: github.event.inputs.macos_version == 'Monterey Beta v12.5'
-        name: DMG and Upload
+        name: Generate Monterey Beta DMG
         run: |
           sudo hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Monterey.dmg -noverify -mountpoint /Volumes/Monterey
@@ -183,7 +195,9 @@ jobs:
           sudo /Applications/Install\ macOS\ 12\ Beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ 12\ Beta
           sudo mv /tmp/Monterey.dmg ~/Desktop/Monterey.dmg
-      - uses: actions/upload-artifact@v3.1.0
+      - if: github.event.inputs.macos_version == 'Monterey Beta v12.5'
+        name: Upload Monterey Beta DMG
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: macOS Monterey Beta
           path: "~/Desktop/Monterey.dmg"
