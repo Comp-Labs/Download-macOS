@@ -7,8 +7,8 @@ on:
 
 jobs:
  list-installers:
-   	runs-on: macos-latest
-    steps:
+  runs-on: macos-latest
+  steps:
     - uses: actions/checkout@v3
     - name: List Installers
       run: |
