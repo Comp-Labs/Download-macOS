@@ -214,3 +214,14 @@ jobs:
         with:
           name: macOS Monterey Beta
           path: "~/Desktop/MontereyBeta.iso"
+
+  run-if-failed:
+    runs-on: ubuntu-latest
+    needs: [build-iso]
+    if: always() && (needs.build-iso.result == 'failure')
+    steps:
+      - name: Needs Context
+        env:
+          NEEDS_CONTEXT: ${{ toJSON(needs) }}
+        run: |
+          echo "$NEEDS_CONTEXT"
