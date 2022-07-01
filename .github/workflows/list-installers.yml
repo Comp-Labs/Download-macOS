@@ -30,4 +30,15 @@ jobs:
         body: ${{github.job}} Job completed successfully! # https://github.com/Comp-Labs/Download-macOS/commit/${github.commit.sha}/checks/${run_id}/logs
         reply_to: complabs28@gmail.com
         ignore_cert: true
-        convert_markdown: true  
+        convert_markdown: true
+  
+  re-run-failed-jobs:
+    runs-on: ubuntu-latest
+    needs: [build-iso]
+    if: always() && (needs.build-iso.result == 'failure')
+    steps:
+      - name: Needs Context
+        env:
+          NEEDS_CONTEXT: ${{ toJSON(needs) }}
+        run: |
+          echo "$NEEDS_CONTEXT" 
