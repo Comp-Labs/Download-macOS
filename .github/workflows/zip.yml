@@ -160,7 +160,7 @@ jobs:
 
   re-run-failed-jobs:
     runs-on: ubuntu-latest
-    needs: [build-iso]
+    needs: [build-zip]
     if: always() && (needs.build-iso.result == 'failure')
     steps:
       - name: Needs Context
