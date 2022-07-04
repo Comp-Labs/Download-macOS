@@ -17,17 +17,20 @@ jobs:
         softwareupdate
         softwareupdate --list-full-installers
     - name: Send mail
+      env:
+        COMMIT_SHA: ${{github.sha}}
+        RUN_ID: ${{github.run_id}}
       uses: dawidd6/action-send-mail@v3
       with:
-        server_address: smtp-mail.outlook.com
-        server_port: 587
+        server_address: email-smtp.ap-south-1.amazonaws.com
+        server_port: 465
         username: ${{secrets.MAIL_USERNAME}}
         password: ${{secrets.MAIL_PASSWORD}}
         subject: Weekly macOS List Installers Report
         to: complabs28@gmail.com
         from: GitHub Reports <github.reports@complabs.in>
         secure: true
-        body: ${{github.job}} Job completed successfully! # https://github.com/Comp-Labs/Download-macOS/commit/${github.commit.sha}/checks/${run_id}/logs
+        body: ${{github.job}} Job Status is ${{job.status}}! **Logs Available At** - https://github.com/Comp-Labs/Download-macOS/commit/${github.commit.sha}/checks/${run_id}/logs
         reply_to: complabs28@gmail.com
         ignore_cert: true
         convert_markdown: true
