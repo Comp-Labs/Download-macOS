@@ -37,7 +37,7 @@ jobs:
   re-run-failed-jobs:
     runs-on: ubuntu-latest
     needs: [list-installers]
-    if: always() && (needs.build-iso.result == 'failure')
+    if: always() && (needs.list-installers.result == 'failure')
     steps:
       - name: Needs Context
         env:
