@@ -8,7 +8,7 @@ on:
         description: "macOS Version"
         required: true
         options:
-          - Monterey v12.4
+          - Monterey v12.5.1
           - Big Sur v11.6.8
           - Catalina v10.15.7
           - Mojave v10.14.6
@@ -25,12 +25,12 @@ jobs:
 
       # MARK: macOS Version
 
-      - if: github.event.inputs.macos_version == 'Monterey v12.4'
+      - if: github.event.inputs.macos_version == 'Monterey v12.5.1'
         name: Download macOS Monterey Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 12.4
+          softwareupdate --fetch-full-installer --full-installer-version 12.5.1
 
       - if: github.event.inputs.macos_version == 'Big Sur v11.6.8'
         name: Download macOS BigSur Latest
@@ -78,7 +78,7 @@ jobs:
 
       # Monterey
 
-      - if: github.event.inputs.macos_version == 'Monterey v12.4'
+      - if: github.event.inputs.macos_version == 'Monterey v12.5.1'
         name: Generate Monterey DMG
         run: |
           sudo hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
@@ -87,7 +87,7 @@ jobs:
           sudo /Applications/Install\ macOS\ Monterey.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Monterey
           sudo mv /tmp/Monterey.dmg ~/Desktop/Monterey.dmg
-      - if: github.event.inputs.macos_version == 'Monterey v12.4'
+      - if: github.event.inputs.macos_version == 'Monterey v12.5.1'
         name: Upload Monterey DMG
         uses: actions/upload-artifact@v3.1.0
         with:
@@ -183,24 +183,6 @@ jobs:
         with:
           name: macOS Ventura Beta
           path: "~/Desktop/Ventura.dmg"
-
-      # Monterey Beta
-
-      - if: github.event.inputs.macos_version == 'Monterey Beta v12.5'
-        name: Generate Monterey Beta DMG
-        run: |
-          sudo hdiutil create -o /tmp/MontereyBeta -size 16384m -volname MontereyBeta -layout SPUD -fs HFS+J
-          sudo hdiutil attach /tmp/MontereyBeta.dmg -noverify -mountpoint /Volumes/MontereyBeta
-          sleep 10
-          sudo /Applications/Install\ macOS\ 12\ Beta.app/Contents/Resources/createinstallmedia --volume /Volumes/MontereyBeta --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ 12\ Beta
-          sudo mv /tmp/MontereyBeta.dmg ~/Desktop/MontereyBeta.dmg
-      - if: github.event.inputs.macos_version == 'Monterey Beta v12.5'
-        name: Upload Monterey Beta DMG
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: macOS Monterey Beta
-          path: "~/Desktop/MontereyBeta.dmg"
 
   re-run-failed-jobs:
     runs-on: ubuntu-latest
