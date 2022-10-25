@@ -9,7 +9,7 @@ on:
         required: true
         options:
           - Monterey v12.5.1
-          - Big Sur v11.6.8
+          - Big Sur v11.7.1
           - Catalina v10.15.7
           - Mojave v10.14.6
           - High Sierra v10.13.6
@@ -32,12 +32,12 @@ jobs:
           sleep 5
           softwareupdate --fetch-full-installer --full-installer-version 12.5.1
 
-      - if: github.event.inputs.macos_version == 'Big Sur v11.6.8'
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.1'
         name: Download macOS BigSur Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 11.6.8
+          softwareupdate --fetch-full-installer --full-installer-version 11.7.1
 
       - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
         name: Download macOS Catalina Latest
@@ -88,7 +88,7 @@ jobs:
 
       # Big Sur
 
-      - if: github.event.inputs.macos_version == 'Big Sur v11.6.8'
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.1'
         name: ZIP and Upload
         run: |
           cd /Applications
