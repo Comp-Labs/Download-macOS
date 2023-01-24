@@ -13,8 +13,7 @@ on:
           - Catalina v10.15.7
           - Mojave v10.14.6
           - High Sierra v10.13.6
-          - Ventura Beta v13.0
-          - Monterey Beta v12.5
+          - Ventura v13.2
 
 jobs:
   build-zip:
@@ -60,19 +59,12 @@ jobs:
           sleep 5
           softwareupdate --fetch-full-installer --full-installer-version 10.13.6
 
-      - if: github.event.inputs.macos_version == 'Ventura Beta v13.0'
-        name: Download macOS Ventura Beta Latest
+      - if: github.event.inputs.macos_version == 'Ventura v13.2'
+        name: Download macOS Ventura Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 13.0
-
-      - if: github.event.inputs.macos_version == 'Monterey Beta v12.5'
-        name: Download macOS MontereyBeta Latest
-        run: |
-          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
-          sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 12.5
+          softwareupdate --fetch-full-installer --full-installer-version 13.2
 
       # Monterey
 
@@ -134,17 +126,17 @@ jobs:
           name: macOS High Sierra
           path: "/Applications/Install macOS High Sierra.zip"
 
-      # Ventura Beta
+      # Ventura
 
-      - if: github.event.inputs.macos_version == 'Ventura Beta v13.0'
+      - if: github.event.inputs.macos_version == 'Ventura v13.2'
         name: ZIP and Upload
         run: |
           cd /Applications
-          zip -r "Install macOS Ventura beta.zip" "Install macOS Ventura beta.app"
+          zip -r "Install macOS Ventura.zip" "Install macOS Ventura.app"
       - uses: actions/upload-artifact@v3.1.0
         with:
-          name: macOS Ventura Beta
-          path: "/Applications/Install macOS Ventura beta.zip"
+          name: macOS Ventura
+          path: "/Applications/Install macOS Ventura.zip"
 
   re-run-failed-jobs:
     runs-on: ubuntu-latest
