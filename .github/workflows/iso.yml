@@ -13,7 +13,7 @@ on:
           - Catalina v10.15.7
           - Mojave v10.14.6
           - High Sierra v10.13.6
-          - Ventura Beta v13.0
+          - Ventura v13.2
 
 jobs:
   build-iso:
@@ -59,12 +59,12 @@ jobs:
           sleep 5
           softwareupdate --fetch-full-installer --full-installer-version 10.13.6
 
-      - if: github.event.inputs.macos_version == 'Ventura Beta v13.0'
-        name: Download macOS Ventura Beta Latest
+      - if: github.event.inputs.macos_version == 'Ventura v13.2'
+        name: Download macOS Ventura Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 13.0
+          softwareupdate --fetch-full-installer --full-installer-version 13.2
 
       # Monterey
 
@@ -167,24 +167,24 @@ jobs:
           name: macOS High Sierra
           path: "~/Desktop/HighSierra.iso"
 
-      # Ventura Beta
+      # Ventura
 
-      - if: github.event.inputs.macos_version == 'Ventura Beta v13.0'
-        name: Generate Ventura Beta ISO
+      - if: github.event.inputs.macos_version == 'Ventura v13.2'
+        name: Generate Ventura ISO
         run: |
           sudo hdiutil create -o /tmp/Ventura -size 16384m -volname Ventura -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
           sleep 10
-          sudo /Applications/Install\ macOS\ Ventura\ beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ Ventura\ Beta
+          sudo /Applications/Install\ macOS\ Ventura.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Ventura
           hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
           mv -v ~/Desktop/Ventura.cdr ~/Desktop/Ventura.iso
           sudo rm -fv /tmp/Ventura.dmg
-      - if: github.event.inputs.macos_version == 'Ventura Beta v13.0'
-        name: Upload Ventura Beta ISO
+      - if: github.event.inputs.macos_version == 'Ventura v13.2'
+        name: Upload Ventura ISO
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: macOS Ventura Beta
+          name: macOS Ventura
           path: "~/Desktop/Ventura.iso"
 
   re-run-failed-jobs:
