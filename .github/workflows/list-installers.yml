@@ -28,9 +28,9 @@ jobs:
           password: ${{secrets.MAIL_PASSWORD}}
           subject: Weekly macOS List Installers Report
           to: complabs28@gmail.com
-          from: GitHub Reports <github.reports@complabs.in>
+          from: GitHub Reports <github.reports@techfiddle.io>
           secure: true
-          body: ${{github.job}} Job Status is ${{job.status}}! **Logs Available At** - https://github.com/Comp-Labs/Download-macOS/commit/\${github.commit.sha}/checks/\${run_id}/logs
+          body: ${{github.job}} Job Status is ${{job.status}}! **Logs Available At** - https://github.com/Comp-Labs/Download-macOS/commit/$COMMIT_SHA/checks/$RUN_ID/logs
           reply_to: complabs28@gmail.com
           ignore_cert: true
           convert_markdown: true
