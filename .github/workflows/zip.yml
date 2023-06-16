@@ -8,9 +8,9 @@ on:
         description: "macOS Version"
         required: true
         options:
-          - Ventura v13.2.1
-          - Monterey v12.6.4
-          - Big Sur v11.7.4
+          - Ventura v13.4
+          - Monterey v12.6.7
+          - Big Sur v11.7.7
           - Catalina v10.15.7
           - Mojave v10.14.6
           - High Sierra v10.13.6
@@ -25,26 +25,26 @@ jobs:
 
       # MARK: macOS Version
 
-      - if: github.event.inputs.macos_version == 'Ventura v13.2.1'
+      - if: github.event.inputs.macos_version == 'Ventura v13.4'
         name: Download macOS Ventura Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 13.2.1
+          softwareupdate --fetch-full-installer --full-installer-version 13.4
 
-      - if: github.event.inputs.macos_version == 'Monterey v12.6.4'
+      - if: github.event.inputs.macos_version == 'Monterey v12.6.7'
         name: Download macOS Monterey Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 12.6.4
+          softwareupdate --fetch-full-installer --full-installer-version 12.6.7
 
-      - if: github.event.inputs.macos_version == 'Big Sur v11.7.4'
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.7'
         name: Download macOS Big Sur Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 11.7.4
+          softwareupdate --fetch-full-installer --full-installer-version 11.7.7
 
       - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
         name: Download macOS Catalina Latest
@@ -61,7 +61,7 @@ jobs:
           softwareupdate --fetch-full-installer --full-installer-version 10.14.6
 
       - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
-        name: Download macOS HighSierra Latest
+        name: Download macOS High Sierra Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
@@ -83,7 +83,7 @@ jobs:
 
       # Ventura
 
-      - if: github.event.inputs.macos_version == 'Ventura v13.2.1'
+      - if: github.event.inputs.macos_version == 'Ventura v13.4'
         name: ZIP and Upload
         run: |
           cd /Applications
@@ -95,7 +95,7 @@ jobs:
 
       # Monterey
 
-      - if: github.event.inputs.macos_version == 'Monterey v12.6.4'
+      - if: github.event.inputs.macos_version == 'Monterey v12.6.7'
         name: ZIP and Upload
         run: |
           cd /Applications
@@ -107,7 +107,7 @@ jobs:
 
       # Big Sur
 
-      - if: github.event.inputs.macos_version == 'Big Sur v11.7.4'
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.7'
         name: ZIP and Upload
         run: |
           cd /Applications

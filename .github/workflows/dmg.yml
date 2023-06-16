@@ -8,9 +8,9 @@ on:
         description: "macOS Version"
         required: true
         options:
-          - Ventura v13.2.1
-          - Monterey v12.6.4
-          - Big Sur v11.7.4
+          - Ventura v13.4
+          - Monterey v12.6.7
+          - Big Sur v11.7.7
           - Catalina v10.15.7
           - Mojave v10.14.6
           - High Sierra v10.13.6
@@ -25,26 +25,26 @@ jobs:
 
       # MARK: macOS Version
 
-      - if: github.event.inputs.macos_version == 'Ventura v13.2.1'
+      - if: github.event.inputs.macos_version == 'Ventura v13.4'
         name: Download macOS Ventura Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 13.2.1
+          softwareupdate --fetch-full-installer --full-installer-version 13.4
 
-      - if: github.event.inputs.macos_version == 'Monterey v12.6.4'
+      - if: github.event.inputs.macos_version == 'Monterey v12.6.7'
         name: Download macOS Monterey Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 12.6.4
+          softwareupdate --fetch-full-installer --full-installer-version 12.6.7
 
-      - if: github.event.inputs.macos_version == 'Big Sur v11.7.4'
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.7'
         name: Download macOS Big Sur Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 11.7.4
+          softwareupdate --fetch-full-installer --full-installer-version 11.7.7
 
       - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
         name: Download macOS Catalina Latest
@@ -61,7 +61,7 @@ jobs:
           softwareupdate --fetch-full-installer --full-installer-version 10.14.6
 
       - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
-        name: Download macOS HighSierra Latest
+        name: Download macOS High Sierra Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
@@ -78,7 +78,7 @@ jobs:
 
       # Ventura
 
-      - if: github.event.inputs.macos_version == 'Ventura v13.2.1'
+      - if: github.event.inputs.macos_version == 'Ventura v13.4'
         name: Generate Ventura DMG
         run: |
           sudo hdiutil create -o /tmp/Ventura -size 16384m -volname Ventura -layout SPUD -fs HFS+J
@@ -87,7 +87,7 @@ jobs:
           sudo /Applications/Install\ macOS\ Ventura.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Ventura
           sudo mv /tmp/Ventura.dmg ~/Desktop/Ventura.dmg
-      - if: github.event.inputs.macos_version == 'Monterey v12.6.4'
+      - if: github.event.inputs.macos_version == 'Monterey v12.6.7'
         name: Upload Ventura DMG
         uses: actions/upload-artifact@v3.1.0
         with:
@@ -96,7 +96,7 @@ jobs:
 
       # Monterey
 
-      - if: github.event.inputs.macos_version == 'Monterey v12.6.4'
+      - if: github.event.inputs.macos_version == 'Monterey v12.6.7'
         name: Generate Monterey DMG
         run: |
           sudo hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
@@ -105,7 +105,7 @@ jobs:
           sudo /Applications/Install\ macOS\ Monterey.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Monterey
           sudo mv /tmp/Monterey.dmg ~/Desktop/Monterey.dmg
-      - if: github.event.inputs.macos_version == 'Monterey v12.6.4'
+      - if: github.event.inputs.macos_version == 'Monterey v12.6.7'
         name: Upload Monterey DMG
         uses: actions/upload-artifact@v3.1.0
         with:
@@ -114,7 +114,7 @@ jobs:
 
       # Big Sur
 
-      - if: github.event.inputs.macos_version == 'Big Sur v11.7.4'
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.7'
         name: Generate Big Sur DMG
         run: |
           sudo hdiutil create -o /tmp/BigSur -size 16384m -volname BigSur -layout SPUD -fs HFS+J
@@ -123,7 +123,7 @@ jobs:
           sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/BigSur --nointeraction
           hdiutil eject -force /Volumes/Install\ macOS\ Big\ Sur
           sudo mv /tmp/BigSur.dmg ~/Desktop/BigSur.dmg
-      - if: github.event.inputs.macos_version == 'Big Sur v11.7.4'
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.7'
         name: Upload Big Sur DMG
         uses: actions/upload-artifact@v3.1.0
         with:
