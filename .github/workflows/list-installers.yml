@@ -17,9 +17,6 @@ jobs:
           softwareupdate
           softwareupdate --list-full-installers
       - name: Send mail
-        env:
-          COMMIT_SHA: ${{github.sha}}
-          RUN_ID: ${{github.run_id}}
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -30,7 +27,7 @@ jobs:
           to: complabs28@gmail.com
           from: GitHub Reports <github.reports@techfiddle.io>
           secure: true
-          body: ${{github.job}} Job Status is ${{job.status}}! **Logs Available At** - https://github.com/Comp-Labs/Download-macOS/commit/$COMMIT_SHA/checks/$RUN_ID/logs
+          body: ${{github.job}} Job Status is ${{job.status}}! **Logs Available At** - https://github.com/Comp-Labs/Download-macOS/commit/${{github.sha}}/checks/${{github.run_id}}/logs
           reply_to: complabs28@gmail.com
           ignore_cert: true
           convert_markdown: true
