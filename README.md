@@ -6,7 +6,7 @@ Download any macOS Release without needing a Mac! Download in DMG, ISO, or ZIP F
 
 **As Apple has deprecated `seedutil`, macOS Versions from macOS Sonoma 14 will no longer be available in `seedutil` and `seedutil` will no longer be included in macOS Ventura 13.4+. You can use this tool but you can only download ISO, DMG, and ZIP files of macOS High Sierra to macOS Ventura 13.5 Beta.**
 
-⚠️ **Notice**
+## Notice ⚠️
 
 **As a precaution, we request you to not fork this repository to prevent the violation of GitHub's Terms of Service. As an alternative, follow the new steps below:**
 
