@@ -17,7 +17,7 @@ jobs:
           softwareupdate
           softwareupdate --list-full-installers
       - name: Send Report
-        if: github.repository != 'Comp-Labs/Download-macOS'
+        if: github.repository == 'Comp-Labs/Download-macOS'
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -33,7 +33,7 @@ jobs:
           ignore_cert: true
           convert_markdown: true
       - name: Skipped Job Explanation
-        if: github.repository != 'Comp-Labs/Download-macOS'
+        if: github.repository == 'Comp-Labs/Download-macOS'
         run: echo "The 'Send Report' job is skipped because it's running on a forked repository. It can run only on the original repository - Comp-Labs/Download-macOS"
   re-run-failed-jobs:
     runs-on: ubuntu-latest
