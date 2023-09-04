@@ -8,13 +8,13 @@ on:
         description: "macOS Version"
         required: true
         options:
-          - Ventura v13.4
-          - Monterey v12.6.7
-          - Big Sur v11.7.7
+          - Ventura v13.5.1
+          - Monterey v12.7
+          - Big Sur v11.7.9
           - Catalina v10.15.7
           - Mojave v10.14.6
           - High Sierra v10.13.6
-          - Ventura Beta v13.3
+          - Sonoma Beta v14.0
 
 jobs:
   build-iso:
@@ -25,26 +25,26 @@ jobs:
 
       # MARK: macOS Version
 
-      - if: github.event.inputs.macos_version == 'Ventura v13.4'
+      - if: github.event.inputs.macos_version == 'Ventura v13.5.1'
         name: Download macOS Ventura Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 13.4
+          softwareupdate --fetch-full-installer --full-installer-version 13.5.1
 
-      - if: github.event.inputs.macos_version == 'Monterey v12.6.7'
+      - if: github.event.inputs.macos_version == 'Monterey v12.7'
         name: Download macOS Monterey Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 12.6.7
+          softwareupdate --fetch-full-installer --full-installer-version 12.7
 
-      - if: github.event.inputs.macos_version == 'Big Sur v11.7.7'
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.9'
         name: Download macOS Big Sur Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 11.7.7
+          softwareupdate --fetch-full-installer --full-installer-version 11.7.9
 
       - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
         name: Download macOS Catalina Latest
@@ -67,16 +67,16 @@ jobs:
           sleep 5
           softwareupdate --fetch-full-installer --full-installer-version 10.13.6
 
-      - if: github.event.inputs.macos_version == 'Ventura Beta v13.3'
-        name: Download macOS Ventura Beta Latest
+      - if: github.event.inputs.macos_version == 'Sonoma Beta v14.0'
+        name: Download macOS Sonoma Beta Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
-          softwareupdate --fetch-full-installer --full-installer-version 13.3
+          softwareupdate --fetch-full-installer --full-installer-version 14.0
 
       # Ventura
 
-      - if: github.event.inputs.macos_version == 'Ventura v13.4'
+      - if: github.event.inputs.macos_version == 'Ventura v13.5.1'
         name: Generate Ventura ISO
         run: |
           sudo hdiutil create -o /tmp/Ventura -size 16384m -volname Ventura -layout SPUD -fs HFS+J
@@ -88,7 +88,7 @@ jobs:
           hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
           mv -v ~/Desktop/Ventura.cdr ~/Desktop/Ventura.iso
           sudo rm -fv /tmp/Ventura.dmg
-      - if: github.event.inputs.macos_version == 'Ventura v13.4'
+      - if: github.event.inputs.macos_version == 'Ventura v13.5.1'
         name: Upload Ventura ISO
         uses: actions/upload-artifact@v3.1.0
         with:
@@ -97,7 +97,7 @@ jobs:
 
       # Monterey
 
-      - if: github.event.inputs.macos_version == 'Monterey v12.6.7'
+      - if: github.event.inputs.macos_version == 'Monterey v12.7'
         name: Generate Monterey ISO
         run: |
           sudo hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
@@ -109,7 +109,7 @@ jobs:
           hdiutil convert /tmp/Monterey.dmg -format UDTO -o ~/Desktop/Monterey
           mv -v ~/Desktop/Monterey.cdr ~/Desktop/Monterey.iso
           sudo rm -fv /tmp/Monterey.dmg
-      - if: github.event.inputs.macos_version == 'Monterey v12.6.7'
+      - if: github.event.inputs.macos_version == 'Monterey v12.7'
         name: Upload Monterey ISO
         uses: actions/upload-artifact@v3.1.0
         with:
@@ -118,7 +118,7 @@ jobs:
 
       # Big Sur
 
-      - if: github.event.inputs.macos_version == 'Big Sur v11.7.7'
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.9'
         name: Generate Big Sur ISO
         run: |
           sudo hdiutil create -o /tmp/BigSur -size 16384m -volname BigSur -layout SPUD -fs HFS+J
@@ -129,7 +129,7 @@ jobs:
           hdiutil convert /tmp/BigSur.dmg -format UDTO -o ~/Desktop/BigSur
           mv -v ~/Desktop/BigSur.cdr ~/Desktop/BigSur.iso
           sudo rm -fv /tmp/BigSur.dmg
-      - if: github.event.inputs.macos_version == 'Big Sur v11.7.7'
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.9'
         name: Upload Big Sur ISO
         uses: actions/upload-artifact@v3.1.0
         with:
@@ -196,25 +196,25 @@ jobs:
           name: macOS High Sierra
           path: "~/Desktop/HighSierra.iso"
 
-      # Ventura Beta
+      # Sonoma Beta
 
-      - if: github.event.inputs.macos_version == 'Ventura Beta v13.3'
-        name: Generate Ventura Beta ISO
+      - if: github.event.inputs.macos_version == 'Sonoma Beta v14.0'
+        name: Generate Sonoma Beta ISO
         run: |
-          sudo hdiutil create -o /tmp/Ventura -size 16384m -volname Ventura -layout SPUD -fs HFS+J
-          sudo hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
+          sudo hdiutil create -o /tmp/Sonoma -size 16384m -volname Sonoma -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/Sonoma.dmg -noverify -mountpoint /Volumes/Sonoma
           sleep 10
-          sudo /Applications/Install\ macOS\ Ventura\ beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ Ventura\ Beta
-          hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
-          mv -v ~/Desktop/Ventura.cdr ~/Desktop/Ventura.iso
-          sudo rm -fv /tmp/Ventura.dmg
-      - if: github.event.inputs.macos_version == 'Ventura Beta v13.3'
-        name: Upload Ventura Beta ISO
+          sudo /Applications/Install\ macOS\ Sonoma\ beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Sonoma\ Beta
+          hdiutil convert /tmp/Sonoma.dmg -format UDTO -o ~/Desktop/Sonoma
+          mv -v ~/Desktop/Sonoma.cdr ~/Desktop/Sonoma.iso
+          sudo rm -fv /tmp/Sonoma.dmg
+      - if: github.event.inputs.macos_version == 'Sonoma Beta v14.0'
+        name: Upload Sonoma Beta ISO
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: macOS Ventura Beta
-          path: "~/Desktop/Ventura.iso"
+          name: macOS Sonoma Beta
+          path: "~/Desktop/Sonoma.iso"
 
   re-run-failed-jobs:
     runs-on: ubuntu-latest
