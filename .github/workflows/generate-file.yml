@@ -1,4 +1,4 @@
-name: Generate ISO
+name: Generate ISO/DMG/ZIP
 
 on:
   workflow_dispatch:
@@ -15,6 +15,16 @@ on:
           - Mojave v10.14.6
           - High Sierra v10.13.6
           - Sonoma v14.0
+      file:
+        type: choice
+        description: "File Type"
+        required: true
+        options:
+          - iso
+          - dmg
+          - zip
+
+run-name: Generate macOS - ${{ github.event.inputs.macos_version }} ${{ github.event.inputs.file }}
 
 env:
   installer_version: "" # Dont touch: Populated by extract-details (suppresses warnings)
