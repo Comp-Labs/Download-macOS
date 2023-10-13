@@ -19,7 +19,7 @@ on:
 jobs:
   build-iso:
     runs-on: macos-latest
-    if: github.repository == 'Comp-Labs/Download-macOS'
+    #if: github.repository == 'Comp-Labs/Download-macOS' -- Disable: Fails on forked and template generated repos
     steps:
       - uses: actions/checkout@v3
 
