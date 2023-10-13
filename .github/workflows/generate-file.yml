@@ -16,12 +16,24 @@ on:
           - High Sierra v10.13.6
           - Sonoma v14.0
 
+env:
+  installer_version: "" # Dont touch: Populated by extract-details (suppresses warnings)
+  installer_name: "" # Dont touch: Populated by extract-details (suppresses warnings)
+
 jobs:
   build-iso:
     runs-on: macos-latest
     #if: github.repository == 'Comp-Labs/Download-macOS' -- Disable: Fails on forked and template generated repos
     steps:
       - uses: actions/checkout@v3
+
+      # SETUP
+      - name: Extract version details
+        id: extract-details
+        run: |
+          string="${{ github.event.inputs.macos_version }}"
+          echo "installer_version=${string//*v/}" >> $GITHUB_ENV
+          echo "installer_name=${string// v*/}" >> $GITHUB_ENV
 
       # MARK: macOS Version
 
