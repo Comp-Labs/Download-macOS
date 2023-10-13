@@ -14,7 +14,7 @@ on:
           - Catalina v10.15.7
           - Mojave v10.14.6
           - High Sierra v10.13.6
-          - Sonoma Beta v14.0
+          - Sonoma v14.0
 
 jobs:
   build-zip:
@@ -67,8 +67,8 @@ jobs:
           sleep 5
           softwareupdate --fetch-full-installer --full-installer-version 10.13.6
 
-      - if: github.event.inputs.macos_version == 'Sonoma Beta v14.0'
-        name: Download macOS Sonoma Beta Latest
+      - if: github.event.inputs.macos_version == 'Sonoma v14.0'
+        name: Download macOS Sonoma Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
@@ -153,17 +153,17 @@ jobs:
           name: macOS High Sierra
           path: "/Applications/Install macOS High Sierra.zip"
 
-      # Sonoma Beta
+      # Sonoma
 
-      - if: github.event.inputs.macos_version == 'Sonoma Beta v14.0'
+      - if: github.event.inputs.macos_version == 'Sonoma v14.0'
         name: ZIP and Upload
         run: |
           cd /Applications
-          zip -r "Install macOS Sonoma beta.zip" "Install macOS Sonoma beta.app"
+          zip -r "Install macOS Sonoma.zip" "Install macOS Sonoma.app"
       - uses: actions/upload-artifact@v3.1.0
         with:
-          name: macOS Sonoma Beta
-          path: "/Applications/Install macOS Sonoma beta.zip"
+          name: macOS Sonoma
+          path: "/Applications/Install macOS Sonoma.zip"
 
   re-run-failed-jobs:
     runs-on: ubuntu-latest

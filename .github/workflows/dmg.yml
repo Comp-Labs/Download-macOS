@@ -14,7 +14,7 @@ on:
           - Catalina v10.15.7
           - Mojave v10.14.6
           - High Sierra v10.13.6
-          - Sonoma Beta v14.0
+          - Sonoma v14.0
 
 jobs:
   build-dmg:
@@ -67,8 +67,8 @@ jobs:
           sleep 5
           softwareupdate --fetch-full-installer --full-installer-version 10.13.6
 
-      - if: github.event.inputs.macos_version == 'Sonoma Beta v14.0'
-        name: Download macOS Sonoma Beta Latest
+      - if: github.event.inputs.macos_version == 'Sonoma v14.0'
+        name: Download macOS Sonoma Latest
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
@@ -184,22 +184,22 @@ jobs:
           name: macOS High Sierra
           path: "~/Desktop/HighSierra.dmg"
 
-      # Sonoma Beta
+      # Sonoma
 
-      - if: github.event.inputs.macos_version == 'Sonoma Beta v14.0'
-        name: Generate Sonoma Beta DMG
+      - if: github.event.inputs.macos_version == 'Sonoma v14.0'
+        name: Generate Sonoma DMG
         run: |
           sudo hdiutil create -o /tmp/Sonoma -size 16384m -volname Sonoma -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/Sonoma.dmg -noverify -mountpoint /Volumes/Sonoma
           sleep 10
-          sudo /Applications/Install\ macOS\ Sonoma\ Beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ Sonoma\ Beta
+          sudo /Applications/Install\ macOS\ Sonoma.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Sonoma
           sudo mv /tmp/Sonoma.dmg ~/Desktop/Sonoma.dmg
-      - if: github.event.inputs.macos_version == 'Sonoma Beta v14.0'
-        name: Upload Sonoma Beta DMG
+      - if: github.event.inputs.macos_version == 'Sonoma v14.0'
+        name: Upload Sonoma DMG
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: macOS Sonoma Beta
+          name: macOS Sonoma
           path: "~/Desktop/Sonoma.dmg"
 
   re-run-failed-jobs:
