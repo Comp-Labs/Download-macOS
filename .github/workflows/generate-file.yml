@@ -66,12 +66,6 @@ jobs:
           hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
           mv -v ~/Desktop/Ventura.cdr ~/Desktop/Ventura.iso
           sudo rm -fv /tmp/Ventura.dmg
-      - if: github.event.inputs.macos_version == 'Ventura v13.5.1'
-        name: Upload Ventura ISO
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: macOS Ventura
-          path: "~/Desktop/Ventura.iso"
 
       # Monterey
 
@@ -87,12 +81,6 @@ jobs:
           hdiutil convert /tmp/Monterey.dmg -format UDTO -o ~/Desktop/Monterey
           mv -v ~/Desktop/Monterey.cdr ~/Desktop/Monterey.iso
           sudo rm -fv /tmp/Monterey.dmg
-      - if: github.event.inputs.macos_version == 'Monterey v12.7'
-        name: Upload Monterey ISO
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: macOS Monterey
-          path: "~/Desktop/Monterey.iso"
 
       # Big Sur
 
@@ -107,12 +95,6 @@ jobs:
           hdiutil convert /tmp/BigSur.dmg -format UDTO -o ~/Desktop/BigSur
           mv -v ~/Desktop/BigSur.cdr ~/Desktop/BigSur.iso
           sudo rm -fv /tmp/BigSur.dmg
-      - if: github.event.inputs.macos_version == 'Big Sur v11.7.9'
-        name: Upload Big Sur ISO
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: macOS Big Sur
-          path: "~/Desktop/BigSur.iso"
 
       # Catalina
 
@@ -127,12 +109,6 @@ jobs:
           hdiutil convert /tmp/Catalina.dmg -format UDTO -o ~/Desktop/Catalina
           mv -v ~/Desktop/Catalina.cdr ~/Desktop/Catalina.iso
           sudo rm -fv /tmp/Catalina.dmg
-      - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
-        name: Upload Catalina ISO
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: macOS Catalina
-          path: "~/Desktop/Catalina.iso"
 
       # Mojave
 
@@ -147,12 +123,6 @@ jobs:
           hdiutil convert /tmp/Mojave.dmg -format UDTO -o ~/Desktop/Mojave
           mv -v ~/Desktop/Mojave.cdr ~/Desktop/Mojave.iso
           sudo rm -fv /tmp/Mojave.dmg
-      - if: github.event.inputs.macos_version == 'Mojave v10.14.6'
-        name: Upload Mojave ISO
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: macOS Mojave
-          path: "~/Desktop/Mojave.iso"
 
       # High Sierra
 
@@ -167,12 +137,6 @@ jobs:
           hdiutil convert /tmp/HighSierra.dmg -format UDTO -o ~/Desktop/HighSierra
           mv -v ~/Desktop/HighSierra.cdr ~/Desktop/HighSierra.iso
           sudo rm -fv /tmp/HighSierra.dmg
-      - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
-        name: Upload High Sierra ISO
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: macOS High Sierra
-          path: "~/Desktop/HighSierra.iso"
 
       # Sonoma
 
@@ -187,12 +151,13 @@ jobs:
           hdiutil convert /tmp/Sonoma.dmg -format UDTO -o ~/Desktop/Sonoma
           mv -v ~/Desktop/Sonoma.cdr ~/Desktop/Sonoma.iso
           sudo rm -fv /tmp/Sonoma.dmg
-      - if: github.event.inputs.macos_version == 'Sonoma v14.0'
-        name: Upload Sonoma ISO
+
+      # UPLOAD
+      - name: Upload ${{ github.event.inputs.file }}
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: macOS Sonoma
-          path: "~/Desktop/Sonoma.iso"
+          name: macOS ${{ env.installer_name }}
+          path: "~/Desktop/${{ env.installer_name }}.${{ github.event.inputs.file }}"
 
   re-run-failed-jobs:
     runs-on: ubuntu-latest
