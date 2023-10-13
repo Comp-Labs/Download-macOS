@@ -52,105 +52,37 @@ jobs:
           sleep 5
           softwareupdate --fetch-full-installer --full-installer-version ${{ env.installer_version }}
 
-      # Ventura
-
-      - if: github.event.inputs.macos_version == 'Ventura v13.5.1'
-        name: Generate Ventura ISO
+      # GENERATE FILE
+      - if: github.event.inputs.file == 'dmg'
+        name: Generate DMG from macOS Installer
         run: |
-          sudo hdiutil create -o /tmp/Ventura -size 16384m -volname Ventura -layout SPUD -fs HFS+J
-          sudo hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
+          sudo hdiutil create -o /tmp/'${{ env.installer_name }}' -size 16384m -volname '${{ env.installer_name }}' -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/'${{ env.installer_name }}'.dmg -noverify -mountpoint /Volumes/'${{ env.installer_name }}'
           sleep 10
-          sleep 10
-          sudo /Applications/Install\ macOS\ Ventura.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ Ventura
-          hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
-          mv -v ~/Desktop/Ventura.cdr ~/Desktop/Ventura.iso
-          sudo rm -fv /tmp/Ventura.dmg
+          sudo /Applications/'Install macOS ${{ env.installer_name }}'.app/Contents/Resources/createinstallmedia --volume /Volumes/'${{ env.installer_name }}' --nointeraction
+          hdiutil eject -force /Volumes/'Install macOS ${{ env.installer_name }}'
+          sudo mv /tmp/'${{ env.installer_name }}'.dmg ~/Desktop/'${{ env.installer_name }}'.dmg
 
-      # Monterey
-
-      - if: github.event.inputs.macos_version == 'Monterey v12.7'
-        name: Generate Monterey ISO
+      - if: github.event.inputs.file == 'iso'
+        name: Generate ISO from macOS Installer
         run: |
-          sudo hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
-          sudo hdiutil attach /tmp/Monterey.dmg -noverify -mountpoint /Volumes/Monterey
-          sleep 10
-          sleep 10
-          sudo /Applications/Install\ macOS\ Monterey.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ Monterey
-          hdiutil convert /tmp/Monterey.dmg -format UDTO -o ~/Desktop/Monterey
-          mv -v ~/Desktop/Monterey.cdr ~/Desktop/Monterey.iso
-          sudo rm -fv /tmp/Monterey.dmg
+          sudo hdiutil create -o /tmp/'${{ env.installer_name }}' -size 16384m -volname '${{ env.installer_name }}' -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/'${{ env.installer_name }}'.dmg -noverify -mountpoint /Volumes/'${{ env.installer_name }}'
+          sleep 20
+          sudo /Applications/'Install macOS ${{ env.installer_name }}'.app/Contents/Resources/createinstallmedia --volume /Volumes/'${{ env.installer_name }}' --nointeraction
+          echo "Sleeping 100 to allow installer to finish"
+          sleep 100
+          hdiutil eject -force /Volumes/'Install macOS ${{ env.installer_name }}'
+          hdiutil convert /tmp/'${{ env.installer_name }}'.dmg -format UDTO -o ~/Desktop/'${{ env.installer_name }}'
+          mv -v ~/Desktop/'${{ env.installer_name }}'.cdr ~/Desktop/'${{ env.installer_name }}'.iso
+          sudo rm -fv /tmp/'${{ env.installer_name }}'.dmg
 
-      # Big Sur
-
-      - if: github.event.inputs.macos_version == 'Big Sur v11.7.9'
-        name: Generate Big Sur ISO
+      - if: github.event.inputs.file == 'zip'
+        name: Generate ZIP from macOS Installer
         run: |
-          sudo hdiutil create -o /tmp/BigSur -size 16384m -volname BigSur -layout SPUD -fs HFS+J
-          sudo hdiutil attach /tmp/BigSur.dmg -noverify -mountpoint /Volumes/BigSur
-          sleep 10
-          sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/BigSur --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ Big\ Sur
-          hdiutil convert /tmp/BigSur.dmg -format UDTO -o ~/Desktop/BigSur
-          mv -v ~/Desktop/BigSur.cdr ~/Desktop/BigSur.iso
-          sudo rm -fv /tmp/BigSur.dmg
-
-      # Catalina
-
-      - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
-        name: Generate Catalina ISO
-        run: |
-          sudo hdiutil create -o /tmp/Catalina -size 16384m -volname Catalina -layout SPUD -fs HFS+J
-          sudo hdiutil attach /tmp/Catalina.dmg -noverify -mountpoint /Volumes/Catalina
-          sleep 10
-          sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/Catalina --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ Catalina
-          hdiutil convert /tmp/Catalina.dmg -format UDTO -o ~/Desktop/Catalina
-          mv -v ~/Desktop/Catalina.cdr ~/Desktop/Catalina.iso
-          sudo rm -fv /tmp/Catalina.dmg
-
-      # Mojave
-
-      - if: github.event.inputs.macos_version == 'Mojave v10.14.6'
-        name: Generate Mojave ISO
-        run: |
-          sudo hdiutil create -o /tmp/Mojave -size 16384m -volname Mojave -layout SPUD -fs HFS+J
-          sudo hdiutil attach /tmp/Mojave.dmg -noverify -mountpoint /Volumes/Mojave
-          sleep 10
-          sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/Mojave --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ Mojave
-          hdiutil convert /tmp/Mojave.dmg -format UDTO -o ~/Desktop/Mojave
-          mv -v ~/Desktop/Mojave.cdr ~/Desktop/Mojave.iso
-          sudo rm -fv /tmp/Mojave.dmg
-
-      # High Sierra
-
-      - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
-        name: Generate High Sierra ISO
-        run: |
-          sudo hdiutil create -o /tmp/HighSierra -size 16384m -volname HighSierra -layout SPUD -fs HFS+J
-          sudo hdiutil attach /tmp/HighSierra.dmg -noverify -mountpoint /Volumes/HighSierra
-          sleep 10
-          sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/HighSierra --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ High\ Sierra
-          hdiutil convert /tmp/HighSierra.dmg -format UDTO -o ~/Desktop/HighSierra
-          mv -v ~/Desktop/HighSierra.cdr ~/Desktop/HighSierra.iso
-          sudo rm -fv /tmp/HighSierra.dmg
-
-      # Sonoma
-
-      - if: github.event.inputs.macos_version == 'Sonoma v14.0'
-        name: Generate Sonoma ISO
-        run: |
-          sudo hdiutil create -o /tmp/Sonoma -size 16384m -volname Sonoma -layout SPUD -fs HFS+J
-          sudo hdiutil attach /tmp/Sonoma.dmg -noverify -mountpoint /Volumes/Sonoma
-          sleep 10
-          sudo /Applications/Install\ macOS\ Sonoma.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ Sonoma
-          hdiutil convert /tmp/Sonoma.dmg -format UDTO -o ~/Desktop/Sonoma
-          mv -v ~/Desktop/Sonoma.cdr ~/Desktop/Sonoma.iso
-          sudo rm -fv /tmp/Sonoma.dmg
+          cd /Applications
+          zip -r 'Install macOS ${{ env.installer_name }}.zip' 'Install macOS ${{ env.installer_name }}.app'
+          mv -v 'Install macOS ${{ env.installer_name }}.zip' ~/Desktop/
 
       # UPLOAD
       - name: Upload ${{ github.event.inputs.file }}
