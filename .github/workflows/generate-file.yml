@@ -82,7 +82,7 @@ jobs:
         run: |
           cd /Applications
           zip -r 'Install macOS ${{ env.installer_name }}.zip' 'Install macOS ${{ env.installer_name }}.app'
-          mv -v 'Install macOS ${{ env.installer_name }}.zip' ~/Desktop/
+          mv -v 'Install macOS ${{ env.installer_name }}.zip' ~/Desktop/'${{ env.installer_name }}.zip'
 
       # UPLOAD
       - name: Upload ${{ github.event.inputs.file }}
