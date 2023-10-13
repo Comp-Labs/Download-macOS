@@ -1,0 +1,228 @@
+name: Generate ISO
+
+on:
+  workflow_dispatch:
+    inputs:
+      macos_version:
+        type: choice
+        description: "macOS Version"
+        required: true
+        options:
+          - Ventura v13.5.1
+          - Monterey v12.7
+          - Big Sur v11.7.9
+          - Catalina v10.15.7
+          - Mojave v10.14.6
+          - High Sierra v10.13.6
+          - Sonoma v14.0
+
+jobs:
+  build-iso:
+    runs-on: macos-latest
+    #if: github.repository == 'Comp-Labs/Download-macOS' -- Disable: Fails on forked and template generated repos
+    steps:
+      - uses: actions/checkout@v3
+
+      # MARK: macOS Version
+
+      - if: github.event.inputs.macos_version == 'Ventura v13.5.1'
+        name: Download macOS Ventura Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 13.5.1
+
+      - if: github.event.inputs.macos_version == 'Monterey v12.7'
+        name: Download macOS Monterey Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 12.7
+
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.9'
+        name: Download macOS Big Sur Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 11.7.9
+
+      - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
+        name: Download macOS Catalina Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 10.15.7
+
+      - if: github.event.inputs.macos_version == 'Mojave v10.14.6'
+        name: Download macOS Mojave Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 10.14.6
+
+      - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
+        name: Download macOS High Sierra Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 10.13.6
+
+      - if: github.event.inputs.macos_version == 'Sonoma v14.0'
+        name: Download macOS Sonoma Latest
+        run: |
+          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
+          sleep 5
+          softwareupdate --fetch-full-installer --full-installer-version 14.0
+
+      # Ventura
+
+      - if: github.event.inputs.macos_version == 'Ventura v13.5.1'
+        name: Generate Ventura ISO
+        run: |
+          sudo hdiutil create -o /tmp/Ventura -size 16384m -volname Ventura -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
+          sleep 10
+          sleep 10
+          sudo /Applications/Install\ macOS\ Ventura.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Ventura
+          hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
+          mv -v ~/Desktop/Ventura.cdr ~/Desktop/Ventura.iso
+          sudo rm -fv /tmp/Ventura.dmg
+      - if: github.event.inputs.macos_version == 'Ventura v13.5.1'
+        name: Upload Ventura ISO
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Ventura
+          path: "~/Desktop/Ventura.iso"
+
+      # Monterey
+
+      - if: github.event.inputs.macos_version == 'Monterey v12.7'
+        name: Generate Monterey ISO
+        run: |
+          sudo hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/Monterey.dmg -noverify -mountpoint /Volumes/Monterey
+          sleep 10
+          sleep 10
+          sudo /Applications/Install\ macOS\ Monterey.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Monterey
+          hdiutil convert /tmp/Monterey.dmg -format UDTO -o ~/Desktop/Monterey
+          mv -v ~/Desktop/Monterey.cdr ~/Desktop/Monterey.iso
+          sudo rm -fv /tmp/Monterey.dmg
+      - if: github.event.inputs.macos_version == 'Monterey v12.7'
+        name: Upload Monterey ISO
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Monterey
+          path: "~/Desktop/Monterey.iso"
+
+      # Big Sur
+
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.9'
+        name: Generate Big Sur ISO
+        run: |
+          sudo hdiutil create -o /tmp/BigSur -size 16384m -volname BigSur -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/BigSur.dmg -noverify -mountpoint /Volumes/BigSur
+          sleep 10
+          sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/BigSur --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Big\ Sur
+          hdiutil convert /tmp/BigSur.dmg -format UDTO -o ~/Desktop/BigSur
+          mv -v ~/Desktop/BigSur.cdr ~/Desktop/BigSur.iso
+          sudo rm -fv /tmp/BigSur.dmg
+      - if: github.event.inputs.macos_version == 'Big Sur v11.7.9'
+        name: Upload Big Sur ISO
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Big Sur
+          path: "~/Desktop/BigSur.iso"
+
+      # Catalina
+
+      - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
+        name: Generate Catalina ISO
+        run: |
+          sudo hdiutil create -o /tmp/Catalina -size 16384m -volname Catalina -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/Catalina.dmg -noverify -mountpoint /Volumes/Catalina
+          sleep 10
+          sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/Catalina --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Catalina
+          hdiutil convert /tmp/Catalina.dmg -format UDTO -o ~/Desktop/Catalina
+          mv -v ~/Desktop/Catalina.cdr ~/Desktop/Catalina.iso
+          sudo rm -fv /tmp/Catalina.dmg
+      - if: github.event.inputs.macos_version == 'Catalina v10.15.7'
+        name: Upload Catalina ISO
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Catalina
+          path: "~/Desktop/Catalina.iso"
+
+      # Mojave
+
+      - if: github.event.inputs.macos_version == 'Mojave v10.14.6'
+        name: Generate Mojave ISO
+        run: |
+          sudo hdiutil create -o /tmp/Mojave -size 16384m -volname Mojave -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/Mojave.dmg -noverify -mountpoint /Volumes/Mojave
+          sleep 10
+          sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/Mojave --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Mojave
+          hdiutil convert /tmp/Mojave.dmg -format UDTO -o ~/Desktop/Mojave
+          mv -v ~/Desktop/Mojave.cdr ~/Desktop/Mojave.iso
+          sudo rm -fv /tmp/Mojave.dmg
+      - if: github.event.inputs.macos_version == 'Mojave v10.14.6'
+        name: Upload Mojave ISO
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Mojave
+          path: "~/Desktop/Mojave.iso"
+
+      # High Sierra
+
+      - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
+        name: Generate High Sierra ISO
+        run: |
+          sudo hdiutil create -o /tmp/HighSierra -size 16384m -volname HighSierra -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/HighSierra.dmg -noverify -mountpoint /Volumes/HighSierra
+          sleep 10
+          sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/HighSierra --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ High\ Sierra
+          hdiutil convert /tmp/HighSierra.dmg -format UDTO -o ~/Desktop/HighSierra
+          mv -v ~/Desktop/HighSierra.cdr ~/Desktop/HighSierra.iso
+          sudo rm -fv /tmp/HighSierra.dmg
+      - if: github.event.inputs.macos_version == 'High Sierra v10.13.6'
+        name: Upload High Sierra ISO
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS High Sierra
+          path: "~/Desktop/HighSierra.iso"
+
+      # Sonoma
+
+      - if: github.event.inputs.macos_version == 'Sonoma v14.0'
+        name: Generate Sonoma ISO
+        run: |
+          sudo hdiutil create -o /tmp/Sonoma -size 16384m -volname Sonoma -layout SPUD -fs HFS+J
+          sudo hdiutil attach /tmp/Sonoma.dmg -noverify -mountpoint /Volumes/Sonoma
+          sleep 10
+          sudo /Applications/Install\ macOS\ Sonoma.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Sonoma
+          hdiutil convert /tmp/Sonoma.dmg -format UDTO -o ~/Desktop/Sonoma
+          mv -v ~/Desktop/Sonoma.cdr ~/Desktop/Sonoma.iso
+          sudo rm -fv /tmp/Sonoma.dmg
+      - if: github.event.inputs.macos_version == 'Sonoma v14.0'
+        name: Upload Sonoma ISO
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: macOS Sonoma
+          path: "~/Desktop/Sonoma.iso"
+
+  re-run-failed-jobs:
+    runs-on: ubuntu-latest
+    needs: [build-iso]
+    if: always() && (needs.build-iso.result == 'failure')
+    steps:
+      - name: Needs Context
+        env:
+          NEEDS_CONTEXT: ${{ toJSON(needs) }}
+        run: |
+          echo "$NEEDS_CONTEXT"
