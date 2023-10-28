@@ -1,4 +1,4 @@
-name: Generate ISO/DMG/ZIP
+name: Generate macOS Installer
 
 on:
   workflow_dispatch:
@@ -20,24 +20,24 @@ on:
         description: "File Type"
         required: true
         options:
-          - iso
-          - dmg
-          - zip
+          - ISO
+          - DMG
+          - ZIP
 
 run-name: Generate macOS - ${{ github.event.inputs.macos_version }} ${{ github.event.inputs.file }}
 
 env:
-  installer_version: "" # Dont touch: Populated by extract-details (suppresses warnings)
-  installer_name: "" # Dont touch: Populated by extract-details (suppresses warnings)
+  installer_version: "" # Do not touch: Populated by extract-details (suppresses warnings)
+  installer_name: "" # Do not touch: Populated by extract-details (suppresses warnings)
 
 jobs:
   build:
     runs-on: macos-latest
-    #if: github.repository == 'Comp-Labs/Download-macOS' -- Disable: Fails on forked and template generated repos
+    if: github.repository == 'Comp-Labs/Download-macOS'
     steps:
       - uses: actions/checkout@v3
-
-      # SETUP
+      
+      # Setup
       - name: Extract version details
         id: extract-details
         run: |
@@ -45,16 +45,16 @@ jobs:
           echo "installer_version=${string//*v/}" >> $GITHUB_ENV
           echo "installer_name=${string// v*/}" >> $GITHUB_ENV
 
-      # DOWNLOAD INSTALLER
+      # Download Installer
       - name: Download macOS Installer
         run: |
           sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
           sleep 5
           softwareupdate --fetch-full-installer --full-installer-version ${{ env.installer_version }}
 
-      # GENERATE FILE
+      # Generate Installer
       - if: github.event.inputs.file == 'dmg'
-        name: Generate DMG from macOS Installer
+        name: Generate macOS DMG Installer
         run: |
           sudo hdiutil create -o /tmp/'${{ env.installer_name }}' -size 16384m -volname '${{ env.installer_name }}' -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/'${{ env.installer_name }}'.dmg -noverify -mountpoint /Volumes/'${{ env.installer_name }}'
@@ -64,13 +64,13 @@ jobs:
           sudo mv /tmp/'${{ env.installer_name }}'.dmg ~/Desktop/'${{ env.installer_name }}'.dmg
 
       - if: github.event.inputs.file == 'iso'
-        name: Generate ISO from macOS Installer
+        name: Generate macOS ISO Installer
         run: |
           sudo hdiutil create -o /tmp/'${{ env.installer_name }}' -size 16384m -volname '${{ env.installer_name }}' -layout SPUD -fs HFS+J
           sudo hdiutil attach /tmp/'${{ env.installer_name }}'.dmg -noverify -mountpoint /Volumes/'${{ env.installer_name }}'
           sleep 20
           sudo /Applications/'Install macOS ${{ env.installer_name }}'.app/Contents/Resources/createinstallmedia --volume /Volumes/'${{ env.installer_name }}' --nointeraction
-          echo "Sleeping 100 to allow installer to finish"
+          echo "Sleeping 100 to allow the installer to finish"
           sleep 100
           hdiutil eject -force /Volumes/'Install macOS ${{ env.installer_name }}'
           hdiutil convert /tmp/'${{ env.installer_name }}'.dmg -format UDTO -o ~/Desktop/'${{ env.installer_name }}'
@@ -78,13 +78,13 @@ jobs:
           sudo rm -fv /tmp/'${{ env.installer_name }}'.dmg
 
       - if: github.event.inputs.file == 'zip'
-        name: Generate ZIP from macOS Installer
+        name: Generate macOS ZIP Installer
         run: |
           cd /Applications
           zip -r 'Install macOS ${{ env.installer_name }}.zip' 'Install macOS ${{ env.installer_name }}.app'
           mv -v 'Install macOS ${{ env.installer_name }}.zip' ~/Desktop/'${{ env.installer_name }}.zip'
 
-      # UPLOAD
+      # Upload Installer
       - name: Upload ${{ github.event.inputs.file }}
         uses: actions/upload-artifact@v3.1.0
         with:
