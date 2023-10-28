@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [list-installers]
     env:
-        output: ${{needs.list-installers.outputs.list}}
+      OUTPUT: ${{needs.list-installers.outputs.list}}
     steps:
       - name: Send Report
         if: github.repository == 'Comp-Labs/Download-macOS'
@@ -38,7 +38,7 @@ jobs:
           to: complabs28@gmail.com
           from: GitHub Reports <github.reports@techfiddle.io>
           secure: true
-          body: Logs - `${{output}}`
+          body: Logs - `$OUTPUT`
           reply_to: complabs28@gmail.com
           ignore_cert: true
           convert_markdown: true
