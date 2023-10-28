@@ -8,13 +8,14 @@ on:
         description: "macOS Version"
         required: true
         options:
-          - Ventura v13.5.1
-          - Monterey v12.7
-          - Big Sur v11.7.9
+          - Sonoma v14.0
+          - Ventura v13.6
+          - Monterey v12.7.1
+          - Big Sur v11.7.10
           - Catalina v10.15.7
           - Mojave v10.14.6
           - High Sierra v10.13.6
-          - Sonoma v14.0
+          - Sonoma Beta v14.1
       file:
         type: choice
         description: "File Type"
@@ -24,7 +25,7 @@ on:
           - DMG
           - ZIP
 
-run-name: Generate macOS - ${{ github.event.inputs.macos_version }} ${{ github.event.inputs.file }}
+run-name: Generate macOS Installer - ${{ github.event.inputs.macos_version }} ${{ github.event.inputs.file }}
 
 env:
   installer_version: "" # Do not touch: Populated by extract-details (suppresses warnings)
@@ -38,7 +39,7 @@ jobs:
       - uses: actions/checkout@v3
       
       # Setup
-      - name: Extract version details
+      - name: Extract Version Details
         id: extract-details
         run: |
           string="${{ github.event.inputs.macos_version }}"
