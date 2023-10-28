@@ -23,9 +23,9 @@ jobs:
   send-report:
     runs-on: ubuntu-latest
     needs: [list-installers]
+    env:
+        output: ${{needs.list-installers.outputs.list}}
     steps:
-      - env:
-          output: ${{needs.list-installers.outputs.list}}
       - name: Send Report
         if: github.repository == 'Comp-Labs/Download-macOS'
         uses: dawidd6/action-send-mail@v3
