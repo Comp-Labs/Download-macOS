@@ -15,7 +15,6 @@ on:
           - Catalina v10.15.7
           - Mojave v10.14.6
           - High Sierra v10.13.6
-          - Sonoma Beta v14.1
       file:
         type: choice
         description: "File Type"
@@ -36,7 +35,7 @@ jobs:
     runs-on: macos-latest
     if: github.repository == 'Comp-Labs/Download-macOS'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       # Setup
       - name: Extract Version Details
@@ -49,8 +48,6 @@ jobs:
       # Download Installer
       - name: Download macOS Installer
         run: |
-          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
-          sleep 5
           softwareupdate --fetch-full-installer --full-installer-version ${{ env.installer_version }}
 
       # Generate Installer
@@ -87,7 +84,7 @@ jobs:
 
       # Upload Installer
       - name: Upload ${{ github.event.inputs.file }}
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v4
         with:
           name: macOS ${{ env.installer_name }}
           path: "~/Desktop/${{ env.installer_name }}.${{ github.event.inputs.file }}"

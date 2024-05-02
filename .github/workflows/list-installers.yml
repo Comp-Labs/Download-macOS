@@ -11,12 +11,10 @@ jobs:
     outputs:
       list: ${{ steps.list.outputs.list }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - id: list
         name: List Installers
         run: |
-          sudo "/System/Library/PrivateFrameworks/Seeding.framework/Versions/Current/Resources/seedutil" enroll DeveloperSeed
-          sleep 5
           softwareupdate
           softwareupdate --list-full-installers
           echo "list=softwareupdate --list-full-installers" >> "$GITHUB_OUTPUT"
