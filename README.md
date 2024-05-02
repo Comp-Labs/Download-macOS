@@ -6,6 +6,8 @@ Download any macOS Release without needing a Mac! Download in DMG, ISO, or ZIP F
 
 **Some Beta Versions may not work because Apple has deprecated `seedutil`. However, stable versions will work normally like before.**
 
+**Versions older than Big Sur cannot be downloaded because Apple discontinued them. We'll find a fix for it soon.**
+
 ## Notice ⚠️
 
 **As a precaution, we request you to not fork this repository to prevent the violation of GitHub's Terms of Service. As an alternative, follow the new steps as stated below:**
