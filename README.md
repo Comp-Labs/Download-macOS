@@ -10,7 +10,7 @@ Download any macOS Release without needing a Mac! Download in DMG, ISO, or ZIP F
 
 ## Notice ⚠️
 
-**As a precaution, we request you to not fork this repository to prevent the violation of GitHub's Terms of Service. As an alternative, follow the new steps as stated below:**
+**As a precaution, we request you not to fork this repository to prevent the violation of GitHub's Terms of Service. As an alternative, follow the new steps as stated below:**
 
 ## Steps to Start...
 
@@ -18,6 +18,7 @@ Download any macOS Release without needing a Mac! Download in DMG, ISO, or ZIP F
 - Click on `Create a new repository`.
 - Enter the Repository Name as `Download-macOS`.
 - Click on the `Create repository` button.
+- Before running, modify [this line](https://github.com/Comp-Labs/Download-macOS/blob/a4e8e6849d7bd9563638d46e6db843e109e8156c/.github/workflows/generate-installer.yml#L36) to your own repository link to prevent any error.
 - Go to the **Actions** Tab.
 - Select `Generate macOS Installer`
 - Click on **Run workflow**. Select the desired options and click on **Run workflow**.
