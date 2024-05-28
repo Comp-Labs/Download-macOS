@@ -19,10 +19,6 @@ jobs:
           run: |
             softwareupdate
             softwareupdate --list-full-installers
-      - id: show-list
-        name: Show Installers
-        run: |
-          echo ${{steps.list.outputs.stdout}}
   send-report:
     runs-on: ubuntu-latest
     needs: [list-installers]
