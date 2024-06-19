@@ -31,6 +31,8 @@ macOS Installers older than High Sierra can be downloaded through the links belo
 - [Mountain Lion 10.8](https://updates.cdn-apple.com/2021/macos/031-0627-20210614-90D11F33-1A65-42DD-BBEA-E1D9F43A6B3F/InstallMacOSX.dmg)
 - [Lion 10.7](https://updates.cdn-apple.com/2021/macos/041-7683-20210614-E610947E-C7CE-46EB-8860-D26D71F0D3EA/InstallMacOSX.dmg)
 
+In case any of the links don't work, try going [here](https://support.apple.com/en-in/102662#browser) and download them using a Safari browser.
+
 ## Known Issues
 
 - Sometimes you may get an error saying `Update Not Found`. The workaround is nothing but to try again.
