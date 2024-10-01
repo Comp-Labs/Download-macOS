@@ -8,8 +8,9 @@ on:
         description: "macOS Version"
         required: true
         options:
-          - Sonoma v14.6.1
-          - Ventura v13.6.9
+          - Sequoia v15.0
+          - Sonoma v14.7
+          - Ventura v13.7
           - Monterey v12.7.6
           - Big Sur v11.7.10
           - Catalina v10.15.7
