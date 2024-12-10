@@ -7,7 +7,7 @@ on:
 
 jobs:
   list-installers:
-    runs-on: macos-12
+    runs-on: macos-latest
     outputs:
       list: ${{ steps.list.outputs.stdout }}
     steps:
