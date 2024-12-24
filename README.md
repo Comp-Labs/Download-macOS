@@ -23,6 +23,12 @@ Download any macOS Release without needing a Mac! Download in DMG, ISO, or ZIP F
 
 ## Older macOS Installers
 
+### Older than Monterey
+
+On updating the GitHub Actions Runner to `macos-latest (macos-14)`, versions older than Monterey are on longer available.
+
+### Older than High Sierra
+
 macOS Installers older than High Sierra can be downloaded through the links below:
 
 - [Sierra 10.12](http://updates-http.cdn-apple.com/2019/cert/061-39476-20191023-48f365f4-0015-4c41-9f44-39d3d2aca067/InstallOS.dmg)
