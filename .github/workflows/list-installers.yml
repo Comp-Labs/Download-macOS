@@ -9,15 +9,16 @@ jobs:
   list-installers:
     runs-on: macos-latest
     outputs:
-      list: ${{ steps.list.outputs.list }}
+      list: ${{ steps.list.outputs.stdout }}
     steps:
       - uses: actions/checkout@v4
-      - id: list
-        name: List Installers
-        run: |
-          softwareupdate
-          softwareupdate --list-full-installers
-          echo "list=softwareupdate --list-full-installers" >> "$GITHUB_OUTPUT"
+      - name: List Installers
+        uses: mathiasvr/command-output@v2.0.0
+        id: list
+        with:
+          run: |
+            softwareupdate
+            softwareupdate --list-full-installers
   send-report:
     runs-on: ubuntu-latest
     needs: [list-installers]
@@ -36,7 +37,7 @@ jobs:
           to: complabs28@gmail.com
           from: GitHub Reports <github.reports@techfiddle.io>
           secure: true
-          body: Logs - `$OUTPUT`
+          body: Logs - ${{env.OUTPUT}}
           reply_to: complabs28@gmail.com
           ignore_cert: true
           convert_markdown: true
