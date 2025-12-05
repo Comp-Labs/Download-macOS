@@ -21,6 +21,7 @@ on:
           - ISO
           - DMG
           - ZIP
+          - TZST
 
 run-name: Generate macOS Installer - ${{ github.event.inputs.macos_version }} ${{ github.event.inputs.file }}
 
@@ -79,6 +80,18 @@ jobs:
           cd /Applications
           zip -r 'Install macOS ${{ env.installer_name }}.zip' 'Install macOS ${{ env.installer_name }}.app'
           mv -v 'Install macOS ${{ env.installer_name }}.zip' ~/Desktop/'${{ env.installer_name }}.zip'
+
+      - if: github.event.inputs.file == 'tzst'
+        name: Generate macOS TZST Installer
+        run: |
+          cd /Applications
+          git clone https://github.com/rorosen/zeekstd.git
+          cd zeekstd
+          cargo build -p zeekstd_cli --release
+          sudo cp ./target/release/zeekstd /usr/local/bin/
+          cd ../
+          tar -I 'zeekstd' -cvf 'Install macOS ${{ env.installer_name }}.tzst' 'Install macOS ${{ env.installer_name }}.app'
+          mv -v 'Install macOS ${{ env.installer_name }}.tzst' ~/Desktop/'${{ env.installer_name }}.tzst'
 
       # Upload Installer
       - name: Upload ${{ github.event.inputs.file }}
