@@ -63,16 +63,33 @@ jobs:
       - if: github.event.inputs.file == 'iso'
         name: Generate macOS ISO Installer
         run: |
-          sudo hdiutil create -o /tmp/'${{ env.installer_name }}' -size 16384m -volname '${{ env.installer_name }}' -layout SPUD -fs HFS+J
-          sudo hdiutil attach /tmp/'${{ env.installer_name }}'.dmg -noverify -mountpoint /Volumes/'${{ env.installer_name }}'
+          sudo rm -rf /Applications/Xcode*.app
+          sudo rm -rf /Library/Developer/CommandLineTools
+          sudo rm -rf /opt/hostedtoolcache
+          sudo rm -rf /usr/local/share/powershell
+          sudo rm -rf /usr/local/.ghcup
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/local/share/chromium
+          sudo rm -rf ~/.dotnet
+          sudo rm -rf /usr/local/go
+          sudo rm -rf /usr/local/julia*
+          sudo rm -rf ~/Library/Developer/CoreSimulator
+          xcrun simctl delete all 2>/dev/null || true
+          sudo rm -rf ~/Library/Caches/*
+          sudo rm -rf /Library/Caches/*
+          sudo hdiutil create -o /tmp/"${INSTALLER_NAME}" -size 20480m -volname "${INSTALLER_NAME}" -layout SPUD -fs HFS+J -type SPARSE
+          sudo hdiutil attach /tmp/"${INSTALLER_NAME}".app -noverify -mountpoint /Volumes/"${INSTALLER_NAME}"
           sleep 20
-          sudo /Applications/'Install macOS ${{ env.installer_name }}'.app/Contents/Resources/createinstallmedia --volume /Volumes/'${{ env.installer_name }}' --nointeraction
+          echo "Creating install media..."
+          sudo /Applications/"Install macOS ${INSTALLER_NAME}".app/Contents/Resources/createinstallmedia --volume /Volumes/"${INSTALLER_NAME}" --nointeraction
           echo "Sleeping 100 to allow the installer to finish"
           sleep 100
-          hdiutil eject -force /Volumes/'Install macOS ${{ env.installer_name }}'
-          hdiutil convert /tmp/'${{ env.installer_name }}'.dmg -format UDTO -o ~/Desktop/'${{ env.installer_name }}'
-          mv -v ~/Desktop/'${{ env.installer_name }}'.cdr ~/Desktop/'${{ env.installer_name }}'.iso
-          sudo rm -fv /tmp/'${{ env.installer_name }}'.dmg
+          hdiutil eject -force /Volumes/"Install macOS ${INSTALLER_NAME}" 2>/dev/null || \
+          hdiutil detach /tmp/"${INSTALLER_NAME}".sparseimage -force 2>/dev/null || true
+          hdiutil compact /tmp/"${INSTALLER_NAME}".sparseimage || true
+          hdiutil convert /tmp/"${INSTALLER_NAME}".sparseimage -format UDTO -o /tmp/"${INSTALLER_NAME}"
+          sudo rm -fv /tmp/"${INSTALLER_NAME}".sparseimage
+          mv -v /tmp/"${INSTALLER_NAME}".cdr ~/Desktop/"${INSTALLER_NAME}".iso
 
       - if: github.event.inputs.file == 'zip'
         name: Generate macOS ZIP Installer
