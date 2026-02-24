@@ -35,7 +35,7 @@ jobs:
           password: ${{secrets.MAIL_PASSWORD}}
           subject: Weekly macOS List Versions Report
           to: complabs28@gmail.com
-          from: GitHub Reports <github.reports@techfiddle.io>
+          from: GitHub Reports <github.reports@techfiddle.org>
           secure: true
           body: Logs - ${{env.OUTPUT}}
           reply_to: complabs28@gmail.com
