@@ -41,6 +41,7 @@ In case any of the links don't work, try going [here](https://support.apple.com/
 
 ## Known Issues
 
+- Older Versions (Older than Monterey) are deprecated by Apple, and are no longer available through this tool.
 - Sometimes you may get an error saying `Update Not Found`. The workaround is nothing but to try again.
 - Sometimes you may get an error saying `hdiutil: couldn't eject "disk2" - Resource busy`. Workaround is nothing but to try again
 - Sometimes you may be trying to extract the Downloaded ZIP File but it will say 'Corrupted'. Workaround is to re-run the Job and it should work. No Possible Fixes are Available.
