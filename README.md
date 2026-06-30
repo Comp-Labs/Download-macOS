@@ -25,7 +25,7 @@ Download any macOS Release without needing a Mac! Download in DMG, ISO, or ZIP F
 
 ### Older than Monterey
 
-On updating the GitHub Actions Runner to `macos-latest (macos-14)`, versions older than Monterey are on longer available.
+On updating the GitHub Actions Runner to `macos-latest (macos-14)`, versions older than Monterey are no longer available.
 
 ### Older than High Sierra
 
