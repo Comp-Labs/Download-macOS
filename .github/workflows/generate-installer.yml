@@ -8,9 +8,9 @@ on:
         description: "macOS Version"
         required: true
         options:
-          - Tahoe v26.5.2
-          - Sequoia v15.7.7
-          - Sonoma v14.8.7
+          - Tahoe v26.6
+          - Sequoia v15.7.8
+          - Sonoma v14.8.8
           - Ventura v13.7.8
           - Monterey v12.7.6
       file:
